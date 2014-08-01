@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<div class="container">
+    <h1>Yay some fun with backbone</h1>
+    <hr>
+
+    <div class="page"></div>
+
+
+</div>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+
+<script>
+
+var User = Backbone.Collection.extend({
+    url: '/users'
+});
+
+var Userlist = Backbone.View.extend({
+    el: '.page',
+    render: function(){
+        var that = this;
+        var user = new Users();
+
+        user.fetch({
+            success: function(){
+                that.$el.html('CONTENT YAYAY');
+            }
+        });
+    }
+});
+
+var Router = Backbone.Router.extend({
+    routes: {
+        '': 'home'
+    }
+});
+
+
+// instances
+var userList = new Userlist();
+
+var router = new Router();
+
+router.on('route:home', function(){
+    console.log('home page loaded');
+    userList.render();
+});
+
+Backbone.history.start();
+
+
+
+</script>
+
+</body>
+</html>
